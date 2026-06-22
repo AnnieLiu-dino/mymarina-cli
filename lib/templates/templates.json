@@ -2,6 +2,8 @@
   {
     "name": "default",
     "description": "Basic Node.js template",
-    "dir": "default"
+    "dir": "default",
+    "npmName": "@mymarina/template-default",
+    "version": "latest"
   }
 ]
