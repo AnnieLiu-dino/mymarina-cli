@@ -4,6 +4,8 @@
     "description": "Basic Node.js template",
     "dir": "default",
     "npmName": "@mymarina/template-default",
-    "version": "latest"
+    "version": "latest",
+    "tags": ["node", "basic"],
+    "maintainer": "mymarina"
   }
 ]
