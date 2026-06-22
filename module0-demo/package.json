@@ -1,8 +1,0 @@
-{
-  "name": "module0-demo",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "node src/index.js"
-  }
-}
