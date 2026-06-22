@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "node bin/index.js",
+    "test": "node --test",
     "check:version": "node bin/index.js --version",
     "format": "prettier --write \"**/*.{js,json,md}\""
   },
