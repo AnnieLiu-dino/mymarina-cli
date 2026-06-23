@@ -1,0 +1,5 @@
+node_modules
+coverage
+.marina-cli
+.DS_Store
+*.tgz
