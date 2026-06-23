@@ -9,7 +9,9 @@ const fs = require("fs-extra");
 const templateConfig = require("../lib/template/config");
 
 async function createTemplatePackage(files = {}) {
-  const packageRoot = await fs.mkdtemp(path.join(os.tmpdir(), "mymarina-template-config-"));
+  const packageRoot = await fs.mkdtemp(
+    path.join(os.tmpdir(), "mymarina-template-config-"),
+  );
 
   await fs.writeJson(path.join(packageRoot, "package.json"), {
     name: "@mymarina/template-demo",
@@ -36,7 +38,10 @@ async function createTemplatePackage(files = {}) {
 
   if (files.template !== false) {
     await fs.ensureDir(path.join(packageRoot, "template"));
-    await fs.writeFile(path.join(packageRoot, "template", "README.md"), "# <%= projectName %>\n");
+    await fs.writeFile(
+      path.join(packageRoot, "template", "README.md"),
+      "# <%= projectName %>\n",
+    );
   }
 
   return packageRoot;
@@ -49,7 +54,10 @@ test("loadTemplateConfig returns normalized template package protocol", async ()
 
   assert.equal(result.packageRoot, packageRoot);
   assert.equal(result.templatePath, path.join(packageRoot, "template"));
-  assert.equal(result.configPath, path.join(packageRoot, "template.config.json"));
+  assert.equal(
+    result.configPath,
+    path.join(packageRoot, "template.config.json"),
+  );
   assert.deepEqual(result.config.prompts, [
     {
       name: "description",

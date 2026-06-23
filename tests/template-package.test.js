@@ -36,7 +36,16 @@ test("TemplatePackage installs missing latest template package into cache", asyn
 
   assert.equal(calls.length, 1);
   assert.equal(calls[0].packageSpec, "@mymarina/template-vue-app@1.2.3");
-  assert.equal(packageRoot, path.join(cliHome, "templates", "node_modules", "@mymarina", "template-vue-app"));
+  assert.equal(
+    packageRoot,
+    path.join(
+      cliHome,
+      "templates",
+      "node_modules",
+      "@mymarina",
+      "template-vue-app",
+    ),
+  );
   assert.equal(await pkg.exists(), true);
 });
 
