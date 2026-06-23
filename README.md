@@ -1,19 +1,21 @@
 # mymarina-cli
 
-`mymarina-cli` 是一个面向前端项目初始化的脚手架 CLI。它实现了命令注册、运行前检查、远程模板注册中心、交互式模板选择、模板包动态下载、缓存复用和 EJS 模板渲染。
+English | [简体中文](./README.zh-CN.md)
+
+`mymarina-cli` is a frontend project scaffolding CLI. It implements command registration, runtime prechecks, a remote template registry, interactive template selection, dynamic template package installation, local cache reuse, and EJS-based template rendering.
 
 ## Features
 
-- 基于 `commander` 实现命令注册和参数解析
-- 基于 `inquirer` 实现交互式模板选择和模板变量输入
-- 支持远程模板注册中心，默认 registry：
+- Command registration and option parsing powered by `commander`
+- Interactive template selection and template variable input powered by `inquirer`
+- Remote template registry support, with the default registry:
   `https://raw.githubusercontent.com/AnnieLiu-dino/mymarina-template-registry/master/templates.json`
-- 支持通过 npm 动态下载模板包，并缓存到本地 CLI home
-- 支持 `--packagePath` 加载本地模板包，方便模板开发和调试
-- 支持 EJS 渲染模板变量，例如 `<%= projectName %>`
-- 支持模板级配置文件 `template.config.json`
-- 支持 `list`、`create`、`clean`、`doctor` 等核心命令
-- 使用 Node.js 内置测试框架覆盖核心模块
+- Dynamic template package installation from npm with local CLI cache reuse
+- Local template package debugging through `--packagePath`
+- EJS template variable rendering, for example `<%= projectName %>`
+- Template-level configuration through `template.config.json`
+- Core commands including `list`, `create`, `clean`, and `doctor`
+- Core module coverage using the Node.js built-in test runner
 
 ## Requirements
 
@@ -22,21 +24,21 @@
 
 ## Install
 
-本地开发时可以使用 `npm link` 挂载全局命令：
+For local development, link the CLI globally:
 
 ```bash
 npm install
 npm link
 ```
 
-然后可以直接运行：
+Then run:
 
 ```bash
 mymarina --version
 mymarina --help
 ```
 
-也可以不 link，直接用源码运行：
+You can also run the CLI directly from source:
 
 ```bash
 node bin/index.js --help
@@ -44,44 +46,44 @@ node bin/index.js --help
 
 ## Usage
 
-查看模板列表：
+List available templates:
 
 ```bash
 mymarina list
 ```
 
-创建项目，进入交互式模板选择：
+Create a project with interactive template selection:
 
 ```bash
 mymarina create my-app
 ```
 
-指定模板创建项目：
+Create a project with a specified template:
 
 ```bash
 mymarina create my-app --template vue-app
 ```
 
-指定模板版本：
+Create a project with a specified template version:
 
 ```bash
 mymarina create my-app --template vue-app --template-version 0.1.0
 ```
 
-使用本地模板包调试：
+Debug with a local template package:
 
 ```bash
 mymarina create my-app --packagePath ../mymarina-template-vue-app --force
 ```
 
-清理模板缓存：
+Clean template cache:
 
 ```bash
 mymarina clean
 mymarina clean --all
 ```
 
-检查本地环境：
+Check the local environment:
 
 ```bash
 mymarina doctor
@@ -89,23 +91,23 @@ mymarina doctor
 
 ## Commands
 
-| Command                         | Description                                   |
-| ------------------------------- | --------------------------------------------- |
-| `mymarina create <projectName>` | 创建一个新项目                                |
-| `mymarina list` / `mymarina ls` | 查看可用模板列表                              |
-| `mymarina clean`                | 清理 CLI 缓存                                 |
-| `mymarina doctor`               | 检查 Node、npm、registry、CLI home 等环境信息 |
+| Command                         | Description                                               |
+| ------------------------------- | --------------------------------------------------------- |
+| `mymarina create <projectName>` | Create a new project                                      |
+| `mymarina list` / `mymarina ls` | List available templates                                  |
+| `mymarina clean`                | Clean CLI cache                                           |
+| `mymarina doctor`               | Check Node, npm, registry, CLI home, and related settings |
 
 ### create Options
 
-| Option                         | Description                      |
-| ------------------------------ | -------------------------------- |
-| `-t, --template <template>`    | 指定模板名称，跳过交互式模板选择 |
-| `--template-version <version>` | 指定模板 npm 包版本              |
-| `--registryUrl <url>`          | 指定远程模板 registry 地址       |
-| `--packagePath <path>`         | 指定本地模板包目录               |
-| `--force-update`               | 强制重新下载模板包               |
-| `-f, --force`                  | 覆盖目标目录                     |
+| Option                         | Description                                          |
+| ------------------------------ | ---------------------------------------------------- |
+| `-t, --template <template>`    | Specify template name and skip interactive selection |
+| `--template-version <version>` | Specify template npm package version                 |
+| `--registryUrl <url>`          | Specify remote template registry URL                 |
+| `--packagePath <path>`         | Specify local template package root                  |
+| `--force-update`               | Force reinstall cached template package              |
+| `-f, --force`                  | Overwrite target directory                           |
 
 ## Architecture
 
@@ -123,16 +125,16 @@ flowchart TD
   J --> K["generated project"]
 ```
 
-核心分层：
+Core layers:
 
-- `bin/index.js`：CLI 入口，负责启动主程序
-- `lib/index.js`：命令注册层，使用 `commander` 定义命令和参数
-- `lib/core/precheck.js`：运行前检查，包括 Node 版本、root 用户、用户目录、版本更新提示
-- `lib/template/registry.js`：模板发现层，从远程 JSON registry 拉取模板列表，并做结构校验
-- `lib/utils/prompt.js`：交互适配层，封装 `inquirer`，避免业务代码直接依赖具体交互库
-- `lib/template/package.js`：模板包管理层，负责 npm 下载、版本解析、本地缓存复用
-- `lib/template/config.js`：模板协议解析层，读取 `template.config.json` 和 `template/`
-- `lib/template/renderer.js`：模板安装层，复制模板文件并用 EJS 渲染变量
+- `bin/index.js`: CLI executable entry
+- `lib/index.js`: command registration layer based on `commander`
+- `lib/core/precheck.js`: runtime checks for Node version, root user, user home, and update hints
+- `lib/template/registry.js`: template discovery layer that fetches and validates the remote JSON registry
+- `lib/utils/prompt.js`: prompt adapter that wraps `inquirer`, keeping business logic independent from the prompt library
+- `lib/template/package.js`: template package manager for npm installation, version resolution, and cache reuse
+- `lib/template/config.js`: template protocol loader for `template.config.json` and `template/`
+- `lib/template/renderer.js`: template installer that copies files and renders EJS variables
 
 ## Create Flow
 
@@ -160,7 +162,7 @@ sequenceDiagram
 
 ## Template Registry
 
-远程 registry 是一个 JSON 数组，每条记录描述一个模板包：
+The remote registry is a JSON array. Each record describes one template package:
 
 ```json
 [
@@ -175,22 +177,22 @@ sequenceDiagram
 ]
 ```
 
-字段含义：
+Field meanings:
 
-| Field         | Description                      |
-| ------------- | -------------------------------- |
-| `name`        | 用户选择模板时使用的短名称       |
-| `description` | 模板描述，用于 `list` 和交互选择 |
-| `npmName`     | 模板 npm 包名，动态下载时使用    |
-| `version`     | 默认安装版本，通常为 `latest`    |
-| `tags`        | 模板标签                         |
-| `maintainer`  | 模板维护者                       |
+| Field         | Description                                      |
+| ------------- | ------------------------------------------------ |
+| `name`        | Short template name used by CLI users            |
+| `description` | Template description shown in `list` and prompts |
+| `npmName`     | npm package name used for dynamic installation   |
+| `version`     | Default install version, usually `latest`        |
+| `tags`        | Template tags                                    |
+| `maintainer`  | Template maintainer                              |
 
-如果远程 registry 请求失败，CLI 会降级使用内置模板清单，保证基础命令仍可运行。
+If the remote registry request fails, the CLI falls back to the built-in template list so basic commands can still work.
 
 ## Template Package Protocol
 
-一个模板包需要满足以下结构：
+A template package must follow this structure:
 
 ```text
 @mymarina/template-vue-app
@@ -204,7 +206,7 @@ sequenceDiagram
         └── main.js
 ```
 
-`template.config.json` 示例：
+Example `template.config.json`:
 
 ```json
 {
@@ -223,7 +225,7 @@ sequenceDiagram
 }
 ```
 
-`template/` 目录里的文件会被复制到目标项目中。文本文件会经过 EJS 渲染：
+Files inside `template/` are copied into the target project. Text files are rendered with EJS:
 
 ```json
 {
@@ -232,7 +234,7 @@ sequenceDiagram
 }
 ```
 
-生成项目时会被渲染成：
+After project creation, the file becomes:
 
 ```json
 {
@@ -243,7 +245,7 @@ sequenceDiagram
 
 ## Cache Design
 
-远程模板包会被安装到 CLI home 下的模板缓存目录：
+Remote template packages are installed into the template cache under the CLI home:
 
 ```text
 ~/.marina-cli
@@ -253,48 +255,48 @@ sequenceDiagram
             └── template-vue-app
 ```
 
-安装命令核心参数：
+Core npm install command:
 
 ```bash
 npm install <templatePackage>@<version> --prefix <cachePath> --registry <registry> --no-save
 ```
 
-这里的关键点：
+Key points:
 
-- `--prefix`：让 npm 把模板包安装到 CLI 指定的缓存目录，而不是当前项目的 `node_modules`
-- `--no-save`：只下载模板包，不修改当前项目的 `package.json`
-- 缓存命中时直接复用本地模板包，避免重复下载
-- `--force-update` 可以强制重新下载模板包
+- `--prefix`: installs the template package into the CLI cache directory instead of the current project's `node_modules`
+- `--no-save`: downloads the template package without changing the current project's `package.json`
+- Cached template packages are reused when the requested version already exists
+- `--force-update` forces a template package reinstall
 
 ## Environment Variables
 
-| Variable                         | Description                   |
-| -------------------------------- | ----------------------------- |
-| `MYMARINA_TEMPLATE_REGISTRY_URL` | 覆盖默认模板 registry 地址    |
-| `MYMARINA_NPM_REGISTRY`          | 覆盖默认 npm registry         |
-| `NPM_CONFIG_REGISTRY`            | 兼容 npm 自身的 registry 配置 |
+| Variable                         | Description                                |
+| -------------------------------- | ------------------------------------------ |
+| `MYMARINA_TEMPLATE_REGISTRY_URL` | Override the default template registry URL |
+| `MYMARINA_NPM_REGISTRY`          | Override the default npm registry          |
+| `NPM_CONFIG_REGISTRY`            | Reuse npm's own registry setting           |
 
 ## Development
 
-安装依赖：
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-运行测试：
+Run tests:
 
 ```bash
 npm test
 ```
 
-格式化代码：
+Format code:
 
 ```bash
 npm run format
 ```
 
-本地调试命令：
+Local debugging commands:
 
 ```bash
 node bin/index.js list
@@ -304,26 +306,26 @@ node bin/index.js doctor
 
 ## Test Coverage
 
-当前测试覆盖的重点模块：
+Current tests cover:
 
-- `create` 命令流程
-- `list` 命令输出
-- 模板 registry 拉取和校验
-- 模板包安装、版本解析和缓存复用
-- 模板配置协议校验
-- EJS 渲染和 ignore 规则
-- `inquirer` 交互封装
-- npm registry 工具方法
-- request 错误包装
-- CLI context 和 doctor 检查
+- `create` command flow
+- `list` command output
+- Template registry fetching and validation
+- Template package installation, version resolution, and cache reuse
+- Template config protocol validation
+- EJS rendering and ignore rules
+- `inquirer` prompt adapter
+- npm registry utility methods
+- request error wrapping
+- CLI context and doctor checks
 
 ## Roadmap
 
-后续可以继续扩展：
+Possible next steps:
 
-- 发布更多真实业务模板，例如 admin、component-lib、h5
-- 增加模板包发布脚本和版本检查
-- 支持 Git 初始化和自动安装依赖
-- 支持动态命令包，进一步接近插件化架构
-- 增加 create 过程的进度条和更完整的错误恢复
-- 增加 CI，自动运行测试和发布检查
+- Publish more real-world templates, such as admin, component-lib, and h5
+- Add template package release scripts and version checks
+- Support Git initialization and automatic dependency installation
+- Support dynamic command packages and move closer to a plugin-style architecture
+- Add progress indicators and stronger error recovery during project creation
+- Add CI for tests and release checks
