@@ -24,6 +24,19 @@ English | [简体中文](./README.zh-CN.md)
 
 ## Install
 
+Install from npm:
+
+```bash
+npm install -g @mymarina/cli
+```
+
+Then run:
+
+```bash
+mymarina --version
+mymarina --help
+```
+
 For local development, link the CLI globally:
 
 ```bash
@@ -31,7 +44,7 @@ npm install
 npm link
 ```
 
-Then run:
+Then run the linked command:
 
 ```bash
 mymarina --version

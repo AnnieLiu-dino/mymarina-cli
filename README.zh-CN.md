@@ -24,6 +24,19 @@
 
 ## Install
 
+通过 npm 全局安装：
+
+```bash
+npm install -g @mymarina/cli
+```
+
+安装后可以直接运行：
+
+```bash
+mymarina --version
+mymarina --help
+```
+
 本地开发时可以使用 `npm link` 挂载全局命令：
 
 ```bash
@@ -31,7 +44,7 @@ npm install
 npm link
 ```
 
-然后可以直接运行：
+然后运行本地 link 后的命令：
 
 ```bash
 mymarina --version

@@ -7,6 +7,7 @@ const assert = require("node:assert/strict");
 const fs = require("fs-extra");
 
 const TemplatePackage = require("../lib/template/package");
+const { resolveExecutable } = require("../lib/utils/command");
 
 async function createPackageJson(packageRoot, pkg) {
   await fs.ensureDir(packageRoot);
@@ -94,4 +95,10 @@ test("TemplatePackage force option reinstalls cached package", async () => {
   await pkg.install({ force: true });
 
   assert.equal(called, true);
+});
+
+test("resolveExecutable uses npm.cmd on Windows", () => {
+  assert.equal(resolveExecutable("npm", "win32"), "npm.cmd");
+  assert.equal(resolveExecutable("npm", "darwin"), "npm");
+  assert.equal(resolveExecutable("git", "win32"), "git");
 });

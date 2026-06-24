@@ -1,11 +1,18 @@
 [
   {
-    "name": "default",
-    "description": "Basic Node.js template",
-    "dir": "default",
-    "npmName": "@mymarina/template-default",
+    "name": "vue-app",
+    "description": "Vue 3 Vite app template",
+    "npmName": "@mymarina/template-vue-app",
     "version": "latest",
-    "tags": ["node", "basic"],
+    "tags": ["vue3", "vite"],
+    "maintainer": "mymarina"
+  },
+  {
+    "name": "react-app",
+    "description": "React Vite app template",
+    "npmName": "@mymarina/template-react-app",
+    "version": "latest",
+    "tags": ["react", "vite"],
     "maintainer": "mymarina"
   }
 ]
